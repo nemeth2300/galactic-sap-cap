@@ -1,6 +1,7 @@
 using CosmosService as service from '../../srv/cosmos-service';
 
 annotate service.Spacefarers with @fiori.draft.enabled;
+annotate service.Planets with @cds.odata.valuelist;
 
 annotate service.Spacefarers with @(
     UI.FieldGroup #GeneratedGroup: {
@@ -87,6 +88,30 @@ annotate service.Spacefarers with {
 
 annotate service.Spacefarers with {
     spacesuit_color @Common.Label: '{i18n>SpacesuitColor}'
+};
+
+annotate service.Spacefarers with {
+    origin_planet @(
+        Common.Label                   : '{i18n>OriginPlanet}',
+        Common.Text                    : origin_planet.name,
+        Common.TextArrangement         : #TextOnly,
+        Common.ValueListWithFixedValues: true,
+        Common.ValueList               : {
+            $Type         : 'Common.ValueListType',
+            CollectionPath: 'Planets',
+            Parameters    : [
+                {
+                    $Type            : 'Common.ValueListParameterInOut',
+                    LocalDataProperty: origin_planet,
+                    ValueListProperty: 'ID',
+                },
+                {
+                    $Type            : 'Common.ValueListParameterDisplayOnly',
+                    ValueListProperty: 'name',
+                },
+            ],
+        },
+    )
 };
 
 annotate service.SpacefarersStarDusts with @(UI.LineItem #Stardusts: [{
