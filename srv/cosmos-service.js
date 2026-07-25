@@ -1,6 +1,9 @@
 import cds from "@sap/cds";
+import EmailService from "./email-service.js";
 
 class CosmosService extends cds.ApplicationService {
+  emailService = new EmailService(); // how tf does dependency injection work in CAP
+
   init() {
     const { Spacefarers } = this.entities;
 
@@ -46,7 +49,11 @@ class CosmosService extends cds.ApplicationService {
     this.after("CREATE", Spacefarers, async (entity, req) => {
       const email = req.user.attr?.email ?? "";
       if (!email) return;
-      sendWelcomeEmail(email, entity);
+      this.emailService.sendMail(
+        email,
+        "Welcome to Spacefarer",
+        "Welcome to the Spacefarer program!",
+      );
     });
 
     return super.init();
@@ -54,12 +61,3 @@ class CosmosService extends cds.ApplicationService {
 }
 
 export default CosmosService;
-
-const sendMail = (to, subject, text) => {
-  // Whatever email service we are using
-};
-
-const sendWelcomeEmail = (to, spacefarer) => {
-  console.log(`Spacefarer ${spacefarer.name} has been created successfully.`);
-  sendMail(to, "Welcome to Spacefarer", "Welcome to the Spacefarer program!");
-};
