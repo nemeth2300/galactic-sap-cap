@@ -25,29 +25,28 @@ type SpaceSuitColor  : String enum {
 };
 
 
-entity Spacefarer : primary {
+entity Spacefarers : primary {
   name                      : Name not null;
   wormhole_navigation_skill : NavigationSkill not null;
   spacesuit_color           : SpaceSuitColor not null;
-  origin_planet             : Association to Planet not null;
-  stardust_collection       : Composition of many SpacefarerStarDust
+  origin_planet             : Association to Planets not null;
+  stardust_collection       : Composition of many SpacefarersStarDusts
                                 on stardust_collection.spacefarer = $self;
 }
 
-entity StarDust : primary {
+entity StarDusts : primary {
   name        : Name not null;
-  spacefarers : Association to many SpacefarerStarDust
+  spacefarers : Association to many SpacefarersStarDusts
                   on spacefarers.stardust = $self;
 }
 
-entity Planet : primary {
-  name        : Name not null;
-  spacefarers : Association to many Spacefarer
-                  on spacefarers.origin_planet = $self;
+entity SpacefarersStarDusts {
+  key spacefarer : Association to Spacefarers;
+  key stardust   : Association to StarDusts;
 }
 
-
-entity SpacefarerStarDust {
-  key spacefarer : Association to Spacefarer;
-  key stardust   : Association to StarDust;
+entity Planets : primary {
+  name        : Name not null;
+  spacefarers : Association to many Spacefarers
+                  on spacefarers.origin_planet = $self;
 }
