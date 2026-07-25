@@ -28,12 +28,14 @@ annotate service.Spacefarers with @(
             },
         ],
     },
-    UI.Facets                    : [{
-        $Type : 'UI.ReferenceFacet',
-        ID    : 'GeneratedFacet1',
-        Label : 'General Information',
-        Target: '@UI.FieldGroup#GeneratedGroup',
-    }, ],
+    UI.Facets                    : [
+        {
+            $Type : 'UI.ReferenceFacet',
+            ID    : 'GeneratedFacet1',
+            Label : 'General Information',
+            Target: '@UI.FieldGroup#GeneratedGroup',
+        },
+    ],
     UI.LineItem                  : [
         {
             $Type         : 'UI.DataField',
@@ -78,3 +80,9 @@ annotate service.Spacefarers with {
 annotate service.Spacefarers with {
     spacesuit_color @Common.Label: '{i18n>SpacesuitColor}'
 };
+
+annotate service.SpacefarersStarDusts with @(UI.LineItem #Stardusts: [{
+    $Type: 'UI.DataField',
+    Value: stardust.name,
+    Label: 'name',
+}, ], );
