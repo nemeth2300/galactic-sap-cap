@@ -3,7 +3,7 @@ import cds from "@sap/cds";
 // New environemnts as to reset the data
 const createTestEnvironment = () => {
   const testEnvironment = cds.test();
-  testEnvironment.defaults.auth = { username: "Alice", password: "Alice" };
+  testEnvironment.defaults.auth = { username: "Test", password: "Test" };
   testEnvironment.defaults.path = "/cosmos";
 
   return testEnvironment;
@@ -11,17 +11,7 @@ const createTestEnvironment = () => {
 
 describe("spacefarer creation", () => {
   const { GET, POST, expect } = createTestEnvironment();
-
-  it("should allow creating a new spacefarer", async () => {
-    const response = await POST`/Spacefarers ${{
-      name: "Nova Starling",
-      wormhole_navigation_skill: 90,
-      spacesuit_color: "blue",
-      origin_planet_ID: "11a1b1c1-d1e1-4f01-8a11-111111111111",
-    }}`;
-    expect(response.status).to.equal(201);
-  });
-
+  // XDDDDDDDDD??? Apparently this fails coz I have turned on drafts? wtf?
   it("must not allow creating a spacefarer with more than the maximum of wormhole navigation skill", async () => {
     const response = POST`/Spacefarers ${{
       name: "Nova Starling",
@@ -32,6 +22,16 @@ describe("spacefarer creation", () => {
 
     await expect(response).to.be.rejected;
   });
+
+  it("should allow creating a new spacefarer", async () => {
+    const response = await POST`/Spacefarers ${{
+      name: "Nova Starling",
+      wormhole_navigation_skill: 90,
+      spacesuit_color: "blue",
+      origin_planet_ID: "11a1b1c1-d1e1-4f01-8a11-111111111111",
+    }}`;
+    expect(response.status).to.equal(201);
+  });
 });
 
 describe("browse spacefarers", () => {
@@ -40,7 +40,7 @@ describe("browse spacefarers", () => {
 
     it("should not allow fetching spacefarers", async () => {
       const response = GET`Spacefarers`;
-      await expect(response).to.be.rejectedWith(401);
+      await expect(response).to.be.rejectedWith(403);
     });
   });
 
@@ -58,7 +58,7 @@ describe("browse spacefarers", () => {
         wormhole_navigation_skill: 85,
         spacesuit_color: "red",
         origin_planet_ID: "11a1b1c1-d1e1-4f01-8a11-111111111111",
-        createdBy: "Alice",
+        createdBy: "Bob",
       });
 
       const { data } = await GET`Spacefarers`;

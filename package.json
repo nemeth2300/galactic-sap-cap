@@ -41,13 +41,13 @@
               "email": "bob@galactic.example"
             }
           },
-          "Charlie": {
-            "password": "Charlie",
+          "Test": {
+            "password": "Test",
             "roles": [
               "authenticated-user"
             ],
             "attr": {
-              "email": "charlie@galactic.example"
+              "email": "test@galactic.example"
             }
           },
           "*": false

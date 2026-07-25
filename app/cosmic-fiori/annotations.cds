@@ -22,9 +22,14 @@ annotate service.Spacefarers with @(
                 Value: spacesuit_color,
             },
             {
-                $Type: 'UI.DataField',
-                Value: stardust_collection.stardust.name,
-                Label: '{i18n>StardustCollection}',
+                $Type : 'UI.DataField',
+                Value : origin_planet_ID,
+                Label : '{i18n>OriginPlanet}',
+            },
+            {
+                $Type : 'UI.DataField',
+                Value : stardust_collection.stardust_ID,
+                Label : '{i18n>StardustCollection}',
             },
         ],
     },
@@ -74,7 +79,10 @@ annotate service.Spacefarers with @(
 );
 
 annotate service.Spacefarers with {
-    name @Common.Label: '{i18n>Name}'
+    name @(
+        Common.Label: '{i18n>Name}',
+        Common.ExternalID : origin_planet.name,
+    )
 };
 
 annotate service.Spacefarers with {
@@ -86,3 +94,15 @@ annotate service.SpacefarersStarDusts with @(UI.LineItem #Stardusts: [{
     Value: stardust.name,
     Label: 'name',
 }, ], );
+annotate service.Spacefarers with {
+    origin_planet @Common.ExternalID : origin_planet.name
+};
+
+annotate service.SpacefarersStarDusts with {
+    spacefarer @Common.ExternalID : stardust.name
+};
+
+annotate service.SpacefarersStarDusts with {
+    stardust @Common.ExternalID : stardust.name
+};
+
