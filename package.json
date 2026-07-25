@@ -13,7 +13,44 @@
   "scripts": {
     "start": "cds-serve",
     "dev": "cds watch",
-    "test": "cds test"
+    "test": "cds test "
+  },
+  "cds": {
+    "requires": {
+      "auth": {
+        "kind": "mocked",
+        "users": {
+          "Alice": {
+            "password": "Alice",
+            "roles": [
+              "authenticated-user"
+            ],
+            "attr": {
+              "email": "alice@galactic.example"
+            }
+          },
+          "Bob": {
+            "password": "Bob",
+            "roles": [
+              "authenticated-user"
+            ],
+            "attr": {
+              "email": "bob@galactic.example"
+            }
+          },
+          "Charlie": {
+            "password": "Charlie",
+            "roles": [
+              "authenticated-user"
+            ],
+            "attr": {
+              "email": "charlie@galactic.example"
+            }
+          },
+          "*": false
+        }
+      }
+    }
   },
   "private": true
 }

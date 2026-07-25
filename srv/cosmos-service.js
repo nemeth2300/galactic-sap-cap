@@ -4,6 +4,22 @@ class CosmosService extends cds.ApplicationService {
   init() {
     const { Spacefarers } = this.entities;
 
+    this.before("READ", Spacefarers, async (req) => {
+      const [spacefarer] = await cds.ql
+        .SELECT("Spacefarers")
+        .where({ createdBy: req.user?.id })
+        .limit(1);
+
+      if (!spacefarer) {
+        return req.error(
+          403,
+          `User ${req.user?.id} does not have a spacefarer yet.`,
+        );
+      }
+
+      req.query.where("origin_planet_ID", "=", spacefarer.origin_planet_ID);
+    });
+
     this.before("CREATE", Spacefarers, async (req) => {
       // Check if the user already has a spacefarer
       const [currentSpacefarer] = await cds.ql
