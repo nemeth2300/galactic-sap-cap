@@ -6,14 +6,17 @@
     "@sap/cds": "^10"
   },
   "devDependencies": {
+    "@sap/cds-dk": "^10",
     "@cap-js/cds-test": "^1.0.1",
     "@cap-js/cds-types": "^0.18.0",
-    "@cap-js/sqlite": "^3"
+    "@cap-js/sqlite": "^3",
+    "cds-plugin-ui5": "^0.17.4"
   },
   "scripts": {
     "start": "cds-serve",
     "dev": "cds watch",
-    "test": "cds test "
+    "test": "cds test ",
+    "watch-cosmic-fiori": "cds watch --open cosmicfiori/index.html?sap-ui-xx-viewCache=false --livereload false"
   },
   "cds": {
     "requires": {
@@ -52,5 +55,11 @@
       }
     }
   },
-  "private": true
+  "private": true,
+  "workspaces": [
+    "app/*"
+  ],
+  "sapux": [
+    "app/cosmic-fiori"
+  ]
 }

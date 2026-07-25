@@ -5,6 +5,15 @@ service CosmosService @(
   requires: 'authenticated-user'
 ) {
 
+  @readonly
+  entity StarDusts            as projection on db.StarDusts;
+
+  @readonly
+  entity Planets              as projection on db.Planets;
+
+  @readonly
+  entity SpacefarersStarDusts as projection on db.SpacefarersStarDusts;
+
   @restrict: [
     {
       grant: 'CREATE',
@@ -23,5 +32,9 @@ service CosmosService @(
       where: 'createdBy = $user.id'
     },
   ]
-  entity Spacefarers as projection on db.Spacefarers;
+  entity Spacefarers          as
+    projection on db.Spacefarers {
+      *,
+      origin_planet.name as origin_planet_name
+    };
 }
