@@ -38,3 +38,5 @@ service CosmosService @(
       origin_planet.name as origin_planet_name
     };
 }
+
+annotate CosmosService.Spacefarers with @odata.draft.enabled;
