@@ -81,7 +81,7 @@ annotate service.Spacefarers with @(
 annotate service.Spacefarers with {
     name @(
         Common.Label: '{i18n>Name}',
-        Common.ExternalID : origin_planet.name,
+        Common.ExternalID : name,
     )
 };
 
