@@ -5,3 +5,8 @@ Users are managed externally, in this case mocked
 
 Each user can have their own spacefarers
 
+To use the app normally:
+ALice Alice
+
+TO create a new user 
+Test Test
